@@ -29,6 +29,7 @@ export const ImageContainer = memo(({ mainSlideRef, slideRefs, slide, index, ima
                     start: "top top",
                     end: "bottom center",
                     scrub: true,
+                    markers: true,
                 },
                 opacity: 1,
             });
