@@ -1,9 +1,9 @@
 "use client";
 
-import { memo, MutableRefObject, RefObject, useRef} from "react";
+import {memo, MutableRefObject, RefObject, useRef} from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { useGSAP } from '@gsap/react';
+import {useGSAP} from '@gsap/react';
 
 import type {ISlide} from "@/constants/main";
 
@@ -17,9 +17,19 @@ interface ImageContainerProps {
     imageContainerRef: RefObject<HTMLDivElement>;
 }
 
-export const ImageContainer = memo(({ mainSlideRef, slideRefs, slide, index, imageContainerRef }: ImageContainerProps) => {
-    const setImageRef = useRef<HTMLDivElement>(null)
-    
+export const ImageContainer = memo(({
+                                        mainSlideRef,
+                                        slideRefs,
+                                        slide,
+                                        index,
+                                        imageContainerRef
+                                    }: ImageContainerProps) => {
+    const setImageRef = useRef<HTMLDivElement>(null);
+
+    if (index === 1) {
+        console.log(slideRefs.current[index - 1])
+    }
+
     useGSAP(() => {
         const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
         if (setImageRef.current) {
@@ -34,18 +44,18 @@ export const ImageContainer = memo(({ mainSlideRef, slideRefs, slide, index, ima
                 opacity: 1,
             });
         }
-    }, { scope: imageContainerRef });
+    }, {scope: imageContainerRef});
 
-  return (
-    <div key={index} className={styles.imageContainer} ref={setImageRef}>
-        <Image
-            src={slide.image}
-            alt={"project image"}
-            className={styles.image}
-            priority
-        />
-    </div>     
-  )
+    return (
+        <div key={index} className={styles.imageContainer} ref={setImageRef}>
+            <Image
+                src={slide.image}
+                alt={"project image"}
+                className={styles.image}
+                priority
+            />
+        </div>
+    )
 });
 
 ImageContainer.displayName = "ImageContainer";
