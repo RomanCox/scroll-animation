@@ -1,0 +1,26 @@
+@import "./normalize";
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+  scroll-margin-top: 10.3rem;
+}
+
+body {
+  background-color: #121212;
+  color: white;
+  scrollbar-width: thin;
+}
+
+html,
+body {
+  scrollbar-gutter: stable;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1 {
+  font-size: 21rem;
+}
+
+h2 {
+  font-size: 17rem;
+}
