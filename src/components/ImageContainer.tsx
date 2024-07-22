@@ -26,12 +26,12 @@ export const ImageContainer = memo(({
                                     }: ImageContainerProps) => {
     const setImageRef = useRef<HTMLDivElement>(null);
 
-    if (index === 1) {
-        console.log(slideRefs.current[index - 1])
-    }
-
     useGSAP(() => {
         const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
+
+        if (index === 1) {
+            console.log(slideRef)
+        }
         if (setImageRef.current) {
             gsap.to(setImageRef.current, {
                 scrollTrigger: {
