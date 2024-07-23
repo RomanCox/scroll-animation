@@ -33,7 +33,7 @@ export const ImageContainer = memo(({
             console.log(slideRef)
         }
 
-        if (setImageRef.current) {
+        if (setImageRef.current && slideRef) {
             gsap.to(setImageRef.current, {
                 scrollTrigger: {
                     trigger: slideRef,
