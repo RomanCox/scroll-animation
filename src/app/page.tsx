@@ -47,6 +47,8 @@ export default function Home() {
     const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     const setSlideRef = (index: number) => (el: HTMLDivElement | null) => {
+        console.log(el)
+
         slideRefs.current[index] = el;
     };
 

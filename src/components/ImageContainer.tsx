@@ -29,10 +29,10 @@ export const ImageContainer = ({
     useGSAP(() => {
         const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
-        if (index === 1) {
-            console.log(slideRefs.current)
-            console.log(slideRef)
-        }
+        // if (index === 1) {
+        //     console.log(slideRefs.current)
+        //     console.log(slideRef)
+        // }
 
         if (setImageRef.current && slideRef) {
             gsap.to(setImageRef.current, {
