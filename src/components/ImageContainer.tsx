@@ -17,7 +17,7 @@ interface ImageContainerProps {
     imageContainerRef: RefObject<HTMLDivElement>;
 }
 
-export const ImageContainer = memo(({
+export const ImageContainer = ({
                                         mainSlideRef,
                                         slideRefs,
                                         slide,
@@ -58,6 +58,6 @@ export const ImageContainer = memo(({
             />
         </div>
     )
-});
+};
 
 ImageContainer.displayName = "ImageContainer";
