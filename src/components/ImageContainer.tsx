@@ -27,25 +27,23 @@ export const ImageContainer = memo(({
     const setImageRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        if (mainSlideRef.current && slideRefs.current) {
-            const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
+        const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
-            if (index === 1) {
-                console.log(slideRef)
-            }
+        if (index === 1) {
+            console.log(slideRef)
+        }
 
-            if (setImageRef.current) {
-                gsap.to(setImageRef.current, {
-                    scrollTrigger: {
-                        trigger: slideRef,
-                        start: "top top",
-                        end: "bottom center",
-                        scrub: true,
-                        markers: true,
-                    },
-                    opacity: 1,
-                });
-            }
+        if (setImageRef.current) {
+            gsap.to(setImageRef.current, {
+                scrollTrigger: {
+                    trigger: slideRef,
+                    start: "top top",
+                    end: "bottom center",
+                    scrub: true,
+                    markers: true,
+                },
+                opacity: 1,
+            });
         }
     }, {scope: imageContainerRef});
 
