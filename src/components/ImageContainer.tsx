@@ -1,6 +1,6 @@
 "use client";
 
-import {memo, MutableRefObject, RefObject, useLayoutEffect, useRef} from "react";
+import {memo, MutableRefObject, RefObject, useRef} from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import {useGSAP} from '@gsap/react';
