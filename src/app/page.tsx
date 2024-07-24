@@ -130,7 +130,7 @@ export default function Home() {
                 opacity: 0,
             });
         }
-    }, [projectData.otherSlides]);
+    }, []);
 
     return (
         <main className={styles.main}>
