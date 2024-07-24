@@ -30,6 +30,7 @@ export const ImageContainer = memo(({
         const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
         if (index === 1) {
+            console.log(slideRefs)
             console.log(slideRef)
         }
         if (setImageRef.current) {
