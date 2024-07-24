@@ -1,6 +1,6 @@
 "use client";
 
-import {MutableRefObject, RefObject, useRef} from "react";
+import {memo, MutableRefObject, RefObject, useRef} from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import {useGSAP} from '@gsap/react';
@@ -24,40 +24,44 @@ export const ImageContainer = memo(({
                                         index,
                                         imageContainerRef
                                     }: ImageContainerProps) => {
-    const setImageRef = useRef<HTMLDivElement>(null);
+            const setImageRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
+            useGSAP(() => {
+                    const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
-        if (setImageRef.current && slideRef) {
-        if (index === 1) {
-            console.log(slideRefs)
-            console.log(slideRef)
+                    if (index === 1) {
+                        console.log(slideRefs)
+                        console.log(slideRef)
+                    }
+
+                    if (setImageRef.current) {
+                        gsap.to(setImageRef.current, {
+                            scrollTrigger: {
+                                trigger: slideRef,
+                                start: "top top",
+                                end: "bottom center",
+                                scrub: true,
+                                markers: true,
+                            },
+                            opacity: 1,
+                        });
+                    }
+                }, [{scope: imageContainerRef}, index]
+            )
+            ;
+
+            return (
+                <div key={index} className={styles.imageContainer} ref={setImageRef}>
+                    <Image
+                        src={slide.image}
+                        alt={"project image"}
+                        className={styles.image}
+                        priority
+                    />
+                </div>
+            )
         }
-        if (setImageRef.current) {
-            gsap.to(setImageRef.current, {
-                scrollTrigger: {
-                    trigger: slideRef,
-                    start: "top top",
-                    end: "bottom center",
-                    scrub: true,
-                    markers: true,
-                },
-                opacity: 1,
-            });
-        }
-    }, {scope: imageContainerRef});
-
-    return (
-        <div key={index} className={styles.imageContainer} ref={setImageRef}>
-            <Image
-                src={slide.image}
-                alt={"project image"}
-                className={styles.image}
-                priority
-            />
-        </div>
     )
-});
+;
 
 ImageContainer.displayName = "ImageContainer";
