@@ -1,65 +1,51 @@
 "use client";
 
-import {memo, MutableRefObject, RefObject, useRef} from "react";
+import {memo, useEffect, useRef} from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import {useGSAP} from '@gsap/react';
 
-import type {ISlide} from "@/constants/main";
+import {ISlide} from "@/constants/main";
 
 import styles from "./ImageContainer.module.scss";
 
 interface ImageContainerProps {
-    mainSlideRef: RefObject<HTMLImageElement>;
     slide: ISlide;
-    slideRefs: MutableRefObject<(HTMLDivElement | null)[]>;
+    mainSlideRef: HTMLDivElement | null;
+    slideRefs: (HTMLDivElement | null)[];
     index: number;
-    imageContainerRef: RefObject<HTMLDivElement>;
 }
 
 export const ImageContainer = memo(({
+                                        slide,
                                         mainSlideRef,
                                         slideRefs,
-                                        slide,
                                         index,
-                                        imageContainerRef
                                     }: ImageContainerProps) => {
-            const setImageRef = useRef<HTMLDivElement>(null);
+    const setImageRef = useRef<HTMLDivElement>(null)
 
-            useGSAP(() => {
-                    const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
+    useEffect(() => {
+        gsap.to(setImageRef.current, {
+            scrollTrigger: {
+                trigger: slideRefs[index - 1],
+                start: "top top",
+                end: "bottom center",
+                scrub: true,
+                markers: index === 1,
+            },
+            opacity: 1,
+        });
+    }, [index, mainSlideRef, slideRefs]);
 
-                    if (index === 1) {
-                        console.log(slideRef)
-                    }
-
-                    if (setImageRef.current) {
-                        gsap.to(setImageRef.current, {
-                            scrollTrigger: {
-                                trigger: slideRef,
-                                start: "top top",
-                                end: "bottom center",
-                                scrub: true,
-                                markers: true,
-                            },
-                            opacity: 1,
-                        });
-                    }
-                }, [{scope: imageContainerRef}, index]
-            );
-
-            return (
-                <div key={index} className={styles.imageContainer} ref={setImageRef}>
-                    <Image
-                        src={slide.image}
-                        alt={"project image"}
-                        className={styles.image}
-                        priority
-                    />
-                </div>
-            )
-        }
+    return (
+        <div key={index} className={styles.imageContainer} ref={setImageRef}>
+            <Image
+                src={slide.image}
+                alt={"project image"}
+                className={styles.image}
+                priority
+            />
+        </div>
     )
-;
+});
 
 ImageContainer.displayName = "ImageContainer";

@@ -111,6 +111,7 @@ export default function Home() {
                         start: "top top",
                         end: "bottom top",
                         scrub: true,
+                        markers: true,
                     },
                     width: "68vw",
                     height: "calc(100dvh - 19.7rem)",
@@ -138,6 +139,27 @@ export default function Home() {
                 className={styles.sectionWrapper}
             >
                 <div className={styles.animationContentContainer}>
+                    <div className={styles.slideDescriptionsContainer}>
+                        <div className={styles.slideDescription} ref={mainSlideRef}/>
+
+                        {slides.map((slide, index) => (
+                            <div
+                                key={index}
+                                id={index === 0 ? "firstSlide" : undefined}
+                                className={clsx(
+                                    styles.slideDescription,
+                                    {
+                                        [styles.textTop]: index > 0,
+                                        [styles.lastSlideDescription]: index === slides.length - 1,
+                                    }
+                                )}
+                                ref={setSlideRef(index)}
+                            >
+                                {slide.description}
+                            </div>
+                        ))}
+                    </div>
+
                     <div className={styles.stickyBlock}>
                         <div className={styles.imagesWrapper} ref={imageContainerRef}>
                             <Image
@@ -151,9 +173,8 @@ export default function Home() {
                             {slides.map((slide, index) => (
                                 <ImageContainer
                                     key={index}
-                                    imageContainerRef={imageContainerRef}
-                                    mainSlideRef={mainSlideRef}
-                                    slideRefs={slideRefs}
+                                    mainSlideRef={mainSlideRef.current}
+                                    slideRefs={slideRefs.current}
                                     slide={slide}
                                     index={index}
                                 />
@@ -197,27 +218,6 @@ export default function Home() {
                                 </div>
                             ))}
                         </div>
-                    </div>
-
-                    <div className={styles.slideDescriptionsContainer}>
-                        <div className={styles.slideDescription} ref={mainSlideRef}/>
-
-                        {slides.map((slide, index) => (
-                            <div
-                                key={index}
-                                id={index === 0 ? "firstSlide" : undefined}
-                                className={clsx(
-                                    styles.slideDescription,
-                                    {
-                                        [styles.textTop]: index > 0,
-                                        [styles.lastSlideDescription]: index === slides.length - 1,
-                                    }
-                                )}
-                                ref={setSlideRef(index)}
-                            >
-                                {slide.description}
-                            </div>
-                        ))}
                     </div>
                 </div>
 
