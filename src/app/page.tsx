@@ -21,7 +21,7 @@ export default function Home() {
 
     const slides = useMemo(() =>
             projectData.otherSlides.filter(slide => slide.title === chapter),
-        [chapter, projectData.otherSlides]
+        [chapter]
     );
 
     const newProjectLink: IProjectLink = {
