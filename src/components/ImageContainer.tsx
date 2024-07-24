@@ -17,7 +17,7 @@ interface ImageContainerProps {
     imageContainerRef: RefObject<HTMLDivElement>;
 }
 
-export const ImageContainer = ({
+export const ImageContainer = memo(({
                                         mainSlideRef,
                                         slideRefs,
                                         slide,
@@ -29,12 +29,12 @@ export const ImageContainer = ({
     useGSAP(() => {
         const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
-        // if (index === 1) {
-        //     console.log(slideRefs.current)
-        //     console.log(slideRef)
-        // }
-
         if (setImageRef.current && slideRef) {
+        if (index === 1) {
+            console.log(slideRefs)
+            console.log(slideRef)
+        }
+        if (setImageRef.current) {
             gsap.to(setImageRef.current, {
                 scrollTrigger: {
                     trigger: slideRef,
@@ -46,7 +46,7 @@ export const ImageContainer = ({
                 opacity: 1,
             });
         }
-    }, [{scope: imageContainerRef}, index]);
+    }, {scope: imageContainerRef});
 
     return (
         <div key={index} className={styles.imageContainer} ref={setImageRef}>
@@ -58,6 +58,6 @@ export const ImageContainer = ({
             />
         </div>
     )
-};
+});
 
 ImageContainer.displayName = "ImageContainer";
