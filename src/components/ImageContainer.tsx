@@ -30,7 +30,6 @@ export const ImageContainer = memo(({
                     const slideRef = index === 0 ? mainSlideRef.current : slideRefs.current[index - 1];
 
                     if (index === 1) {
-                        console.log(slideRefs)
                         console.log(slideRef)
                     }
 
@@ -47,8 +46,7 @@ export const ImageContainer = memo(({
                         });
                     }
                 }, [{scope: imageContainerRef}, index]
-            )
-            ;
+            );
 
             return (
                 <div key={index} className={styles.imageContainer} ref={setImageRef}>
